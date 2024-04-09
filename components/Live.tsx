@@ -24,7 +24,6 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
    * useOthers: https://liveblocks.io/docs/api-reference/liveblocks-react#useOthers
    */
   const others = useOthers();
-
   /**
    * useMyPresence returns the presence of the current user in the room.
    * It also returns a function to update the presence of the current user.
@@ -42,26 +41,33 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
 
   // store the reactions created on mouse click
   const [reactions, setReactions] = useState<Reaction[]>([]);
-
+  // console.log(reactions);
   // track the state of the cursor (hidden, chat, reaction, reaction selector)
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden,
   });
-
   // set the reaction of the cursor
   const setReaction = useCallback((reaction: string) => {
-    setCursorState({ mode: CursorMode.Reaction, reaction, isPressed: false });
+    
+    setCursorState({ mode: CursorMode.Reaction, reaction, isPressed: true });
+    // console.log("Problem solved :  isPressed: false ")
   }, []);
 
   // Remove reactions that are not visible anymore (every 1 sec)
   useInterval(() => {
+    // console.log("here bro");
     setReactions((reactions) => reactions.filter((reaction) => reaction.timestamp > Date.now() - 4000));
+
   }, 1000);
 
   // Broadcast the reaction to other users (every 100ms)
   useInterval(() => {
-    if (cursorState.mode === CursorMode.Reaction && cursorState.isPressed && cursor) {
+    
+    if (cursorState.mode === CursorMode.Reaction && cursor && cursorState.isPressed) 
+    {
       // concat all the reactions created on mouse click
+      
+      // console.log(reactions)
       setReactions((reactions) =>
         reactions.concat([
           {
@@ -78,7 +84,9 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
         y: cursor.y,
         value: cursorState.reaction,
       });
+
     }
+   
   }, 100);
 
   /**
@@ -88,6 +96,7 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
    * useEventListener: https://liveblocks.io/docs/api-reference/liveblocks-react#useEventListener
    */
   useEventListener((eventData) => {
+    // console.log("useEventListener here")
     const event = eventData.event as ReactionEvent;
     setReactions((reactions) =>
       reactions.concat([
@@ -104,11 +113,11 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
   useEffect(() => {
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.key === "/") {
-        setCursorState({
-          mode: CursorMode.Chat,
-          previousMessage: null,
-          message: "",
-        });
+          setCursorState({
+            mode: CursorMode.Chat,
+            previousMessage: null,
+            message: "",
+          });
       } else if (e.key === "Escape") {
         updateMyPresence({ message: "" });
         setCursorState({ mode: CursorMode.Hidden });
@@ -120,6 +129,8 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "/") {
         e.preventDefault();
+        
+        
       }
     };
 
@@ -188,7 +199,8 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
   // hide the cursor when the mouse is up
   const handlePointerUp = useCallback(() => {
     setCursorState((state: CursorState) =>
-      cursorState.mode === CursorMode.Reaction ? { ...state, isPressed: false } : state
+      cursorState.mode === CursorMode.Reaction ? { mode: CursorMode.Hidden } : state
+      // console.log("Problem solved :...state, isPressed: false")// cursor jitna baar bhi press hota utna baar reaction trigger ho raha tha
     );
   }, [cursorState.mode, setCursorState]);
 
