@@ -5,6 +5,6 @@ import dynamic from "next/dynamic";
  *
  * we're doing this because we're using a canvas element that can't be pre-rendered by Next.js on the server
  */
-const App = dynamic(() => import("./App"), { ssr: false });
+const App = dynamic(() => import("./App"), { ssr: true });
 
 export default App;
