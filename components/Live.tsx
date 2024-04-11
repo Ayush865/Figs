@@ -31,7 +31,7 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
    * useMyPresence: https://liveblocks.io/docs/api-reference/liveblocks-react#useMyPresence
    */
   const [{ cursor }, updateMyPresence] = useMyPresence() as any;
-
+  // console.log(cursor);
   /**
    * useBroadcastEvent is used to broadcast an event to all the other users in the room.
    *
@@ -55,7 +55,6 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
 
   // Remove reactions that are not visible anymore (every 1 sec)
   useInterval(() => {
-    // console.log("here bro");
     setReactions((reactions) => reactions.filter((reaction) => reaction.timestamp > Date.now() - 4000));
 
   }, 1000);
@@ -67,7 +66,6 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
     {
       // concat all the reactions created on mouse click
       
-      // console.log(reactions)
       setReactions((reactions) =>
         reactions.concat([
           {
@@ -235,8 +233,8 @@ const Live = ({ canvasRef, undo, redo }: Props) => {
   return (
     <ContextMenu>
       <ContextMenuTrigger
-        className="relative flex h-full w-full flex-1 items-center justify-center"
-        id="canvas"
+        className="relative flex h-full w-full flex-1 items-center justify-center "
+        id="canvas" 
         style={{
           cursor: cursorState.mode === CursorMode.Chat ? "none" : "auto",
         }}

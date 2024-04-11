@@ -14,11 +14,10 @@ const LeftSidebar = ({ allShapes }: { allShapes: Array<any> }) => {
         <div className="flex flex-col">
           {allShapes?.map((shape: any) => {
             const info = getShapeInfo(shape[1]?.type);
-
             return (
               <div
                 key={shape[1]?.objectId}
-                className="group my-1 flex items-center gap-2 px-5 py-2.5 hover:cursor-pointer hover:bg-primary-green hover:text-primary-black"
+                className="group my-1 flex items-center gap-2 px-5 py-2.5 hover:cursor-pointer hover:bg-primary-white hover:text-primary-black"
               >
                 <Image
                   src={info?.icon}

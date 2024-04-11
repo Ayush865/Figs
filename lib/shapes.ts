@@ -139,7 +139,7 @@ export const modifyShape = ({
   syncShapeInStorage,
 }: ModifyShape) => {
   const selectedElement = canvas.getActiveObject();
-
+  
   if (!selectedElement || selectedElement?.type === "activeSelection") return;
 
   // if  property is width or height, set the scale of the selected element
@@ -153,7 +153,6 @@ export const modifyShape = ({
     if (selectedElement[property as keyof object] === value) return;
     selectedElement.set(property as keyof object, value);
   }
-
   // set selectedElement to activeObjectRef
   activeObjectRef.current = selectedElement;
 

@@ -203,12 +203,15 @@ export const handleCanvasMouseUp = ({
 export const handleCanvasObjectModified = ({
   options,
   syncShapeInStorage,
-}: CanvasObjectModified) => {
+  // canvas, isDrawing, selectedShapeRef, shapeRef,
+}: any) => {
   const target = options.target;
   if (!target) return;
-
+  
+  // handleCanvaseMouseMove({options, canvas, isDrawing, selectedShapeRef, shapeRef, syncShapeInStorage});
   if (target?.type == "activeSelection") {
-    // fix this
+    // fix this 
+
   } else {
     syncShapeInStorage(target);
   }
@@ -238,6 +241,7 @@ export const handleCanvasObjectMoving = ({
 }: {
   options: fabric.IEvent;
 }) => {
+  // console.log(options)
   // get target object which is moving
   const target = options.target as fabric.Object;
 
@@ -387,7 +391,6 @@ export const handleResize = ({ canvas }: { canvas: fabric.Canvas | null }) => {
   if (!canvasElement) return;
 
   if (!canvas) return;
-
   canvas.setDimensions({
     width: canvasElement.clientWidth,
     height: canvasElement.clientHeight,
