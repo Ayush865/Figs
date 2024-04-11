@@ -1,5 +1,5 @@
 import { Work_Sans } from "next/font/google";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -11,7 +11,7 @@ export const metadata = {
     "A minimalist Figma clone using fabric.js and Liveblocks for realtime collaboration",
 };
 
-const workSans = Work_Sans({ 
+const workSans = Work_Sans({
   subsets: ["latin"],
   variable: "--font-work-sans",
   weight: ["400", "600", "700"],
@@ -21,7 +21,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang='en'>
     <body className={`${workSans.className} bg-primary-grey-200`}>
       <Room>
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          {children}
+          <SpeedInsights />
+        </TooltipProvider>
       </Room>
     </body>
   </html>
