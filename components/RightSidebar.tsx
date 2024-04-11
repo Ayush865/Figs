@@ -16,14 +16,15 @@ const RightSidebar = ({
   isEditingRef,
   syncShapeInStorage,
 }: RightSidebarProps) => {
-  const colorInputRef = useRef(null);
+  const colorInputRef = useRef(null); 
   const strokeInputRef = useRef(null);
-
   const handleInputChange = (property: string, value: string) => {
+    // console.log(value)
+    // console.log(elementAttributes)
     if (!isEditingRef.current) isEditingRef.current = true;
-
+    //for frontend
     setElementAttributes((prev) => ({ ...prev, [property]: value }));
-
+    //for backend
     modifyShape({
       canvas: fabricRef.current as fabric.Canvas,
       property,

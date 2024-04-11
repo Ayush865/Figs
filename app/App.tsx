@@ -2,7 +2,7 @@
 
 import { fabric } from "fabric";
 import { useEffect, useRef, useState } from "react";
-
+import  Image  from "next/image";
 import { useMutation, useRedo, useStorage, useUndo } from "@/liveblocks.config";
 import {
   handleCanvaseMouseMove,
@@ -359,6 +359,7 @@ const Home = () => {
       handleCanvasObjectModified({
         options,
         syncShapeInStorage,
+        // canvas, isDrawing, selectedShapeRef, shapeRef,
       });
     });
 
@@ -493,6 +494,7 @@ const Home = () => {
       <Navbar
         imageInputRef={imageInputRef}
         activeElement={activeElement}
+        handleActiveElement={handleActiveElement}
         handleImageUpload={(e: any) => {
           // prevent the default behavior of the input element
           e.stopPropagation();
@@ -504,7 +506,7 @@ const Home = () => {
             syncShapeInStorage,
           });
         }}
-        handleActiveElement={handleActiveElement}
+        
       />
 
       <section className='flex h-full flex-row'>

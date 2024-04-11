@@ -11,7 +11,7 @@ export const metadata = {
     "A minimalist Figma clone using fabric.js and Liveblocks for realtime collaboration",
 };
 
-const workSans = Work_Sans({
+const workSans = Work_Sans({ 
   subsets: ["latin"],
   variable: "--font-work-sans",
   weight: ["400", "600", "700"],
