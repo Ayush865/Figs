@@ -6,7 +6,7 @@ type Props = {
   y: number;
   message?: string;
 };
-
+//for other active users that are not the current user
 const Cursor = ({ color, x, y, message }: Props) => (
   <div
     className='pointer-events-none absolute left-0 top-0'
