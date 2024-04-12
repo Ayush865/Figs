@@ -4,8 +4,9 @@ import { useMemo } from "react";
 
 import { generateRandomName } from "@/lib/utils";
 import { useOthers, useSelf } from "@/liveblocks.config";
-
+import { useUser } from "@clerk/nextjs";
 import Avatar from "./Avatar";
+import { UserButton } from "@clerk/nextjs";
 
 const ActiveUsers = () => {
   /**
@@ -22,6 +23,8 @@ const ActiveUsers = () => {
    */
   const currentUser = useSelf();
 
+  const { isLoaded, isSignedIn, user } = useUser();
+  // console.log(user)
   // memoize the result of this function so that it doesn't change on every render but only when there are new users joining the room
   const memoizedUsers = useMemo(() => {
     const hasMoreUsers = others.length > 2;
@@ -29,7 +32,8 @@ const ActiveUsers = () => {
     return (
       <div className='flex items-center justify-center gap-1'>
         {currentUser && (
-          <Avatar name='You' otherStyles='border-[3px] border-primary-white' />
+          <UserButton />
+          // <Avatar name='You' otherStyles='border-[3px] border-primary-white' />
         )}
 
         {others.slice(0, 2).map(({ connectionId }) => (
