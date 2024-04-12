@@ -189,7 +189,7 @@ export const shortcuts = [
   {
     key: "3",
     name: "Redo",
-    shortcut: "⌘ + Y",
+    shortcut: "⌘ + K",
   },
   {
     key: "4",
